@@ -18,7 +18,7 @@
                     </template>
                     <el-menu-item-group>
                         <el-menu-item index="/user/list">选项1</el-menu-item>
-                        <el-menu-item index="/user/hello">选项2</el-menu-item>
+                        <el-menu-item index="/user/file">选项2</el-menu-item>
                     </el-menu-item-group>
                 </el-submenu>
 
@@ -29,7 +29,7 @@
                     </template>
                     <el-menu-item-group>
                         <el-menu-item index="/user/list">选项1</el-menu-item>
-                        <el-menu-item index="/user/hello">选项2</el-menu-item>
+                        <el-menu-item index="/user/file">选项2</el-menu-item>
                     </el-menu-item-group>
                 </el-submenu>
 
