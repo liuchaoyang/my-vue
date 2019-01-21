@@ -2,7 +2,7 @@
     <div>
         <p>user list</p>
 
-        <el-button type="text" @click="addFormVisible = true">新增</el-button>
+        <el-button type="primary" style="margin-bottom: 20px" @click="addFormVisible = true">新增</el-button>
 
         <br/>
         <el-table :data="tableData" border >
@@ -23,7 +23,7 @@
         </el-table>
 
 
-        <!--dialog-->
+        <!--add dialog-->
         <el-dialog title="收货地址" :visible.sync="addFormVisible">
             <el-form :model="form">
                 <el-form-item label="姓名" :label-width="formLabelWidth">
@@ -40,11 +40,16 @@
                 </el-form-item>
                 <el-form-item label="logo" :label-width="formLabelWidth">
                     <el-upload class="avatar-uploader"
-                               action="https://jsonplaceholder.typicode.com/posts/"
-                               :show-file-list="false"
+                               action=""
+                               :on-change="onChangeEvt"
+                               :show-file-list="true"
+                               :multiple="false"
+                               :limit="1"
+                               :file-list="logoPath"
+                               :auto-upload="false"
                                :before-upload="beforeUpload">
-                        <img v-if="form.logo" :src="form.logo" class="avatar">
-                        <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                        <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
+                        <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
                     </el-upload>
 
                 </el-form-item>
@@ -66,6 +71,7 @@
         data() {
             return {
                 tableData: [],
+                logoPath: [],
                 form: {
                     name: '',
                     summary: '',
@@ -77,55 +83,58 @@
                 formLabelWidth: '120px'
             }
         },
-        // props: {
-        //     tableData: [{
-        //         user: '刘朝阳',
-        //         name: 'liuchaoyang'
-        //     }]
-        // },
         methods: {
             add: function () {
+                let formData = new FormData();
+                // 创建了 FormData 对象的时候传入了表单但是读不出来表单数据，不知道哪里的问题。所以下面用 append 方法添加参数，想打印出来看看的话可以 formData.get('id')
+                formData.append('name', this.form.name);
+                formData.append('summary', this.form.summary);
+                formData.append('yprice', this.form.yprice);
+                formData.append('price', this.form.price);
+                // 这里文件上传的字段一定要设置文件列表中的 raw 参数 this.cert_path[0].raw
+                formData.append('logo', this.logoPath[0] ? this.logoPath[0].raw : '');
+
                 const instance = axios.create({
                     baseURL: 'http://localhost:8086',
                     headers: {
-                        "Content-Type": "application/x-www-form-urlencoded",
-                        'token': '444'
+                        "Content-Type": "multipart/form-data",
+                        'token': '555'
                     }
                 });
-                instance.post('/product/form_insert', this.form)
-                // axios
-                //     .post('http://localhost:8086/product/form_insert', qs.stringify(this.form),
-                //     {
-                //         headers: {
-                //             // 'Content-Type': 'multipart/form-data',
-                //             "Content-Type": "multipart/form-data",
-                //             'token': 'liuchaoyang'
-                //         }
-                //     })
+                instance.post('/product/form_insert', formData)
                     .then(response => {
-                        console.log(response.data)
+                        console.log(response.data);
+                        this.addFormVisible = false;
+
+                        this.refreshTable();
                     })
                     .catch(error => {
                         console.log(error)
                     })
             },
-            beforeUpload: function (file) {
-                return false;
+            onChangeEvt (file, fileList) {
+                this.logoPath = fileList;
+            },
+            beforeUpload: function (file, fileList) {
+                return true;
             },
             handleClick: function (scope, row) {
                 console.log(scope);
                 console.log(row);
+            },
+            refreshTable: function () {
+                axios
+                    .get('http://localhost:8086/product/list_all')
+                    .then(response => {
+                        this.tableData = response.data.data
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    })
             }
         },
         mounted () {
-            axios
-                .get('http://localhost:8086/product/list_all')
-                .then(response => {
-                    this.tableData = response.data.data
-                })
-                .catch(error => {
-                    console.log(error)
-                })
+            this.refreshTable();
         },
         name: "user-list"
     }

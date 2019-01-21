@@ -33,6 +33,13 @@
     }
 </script>
 
-<style scoped>
-
+<style>
+    .el-header {
+        background: url("../assets/header.png") no-repeat left bottom;
+        /*background-color: #B3C0D1;*/
+        color: #333;
+        text-align: left;
+        line-height: 60px;
+        margin-bottom: 5px;
+    }
 </style>

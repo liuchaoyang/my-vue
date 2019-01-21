@@ -2,7 +2,7 @@
     <div >
         <el-row>
             <el-col :span="24">
-                <div class="head-wrap">这事一个很不错的VUE</div>
+                <div style="padding-left: 50px">这事一个很不错的VUE</div>
             </el-col>
         </el-row>
     </div>
