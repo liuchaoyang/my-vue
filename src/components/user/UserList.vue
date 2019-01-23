@@ -1,23 +1,22 @@
 <template>
     <div>
-        <p>user list</p>
+        <p>商品列表</p>
 
         <el-button type="primary" style="margin-bottom: 20px" @click="addFormVisible = true">新增</el-button>
 
         <br/>
         <el-table :data="tableData" border >
-            <el-table-column v-show="false" prop="id" label="id"></el-table-column>
-            <el-table-column prop="name" label="姓名" ></el-table-column>
+            <el-table-column prop="id" label="商品编号"></el-table-column>
+            <el-table-column prop="name" label="商品名称" ></el-table-column>
             <el-table-column prop="summary" label="简介" ></el-table-column>
             <el-table-column prop="yprice" label="原价" ></el-table-column>
-            <el-table-column prop="price" label="价格" ></el-table-column>
+            <el-table-column prop="price" label="现格" ></el-table-column>
             <el-table-column prop="createTime" label="创建时间" width="100"></el-table-column>
             <el-table-column prop="updateTime" label="更新时间" width="100"></el-table-column>
 
             <el-table-column fixed="right" label="操作" >
                 <template slot-scope="scope">
-                    <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
-                    <el-button type="text" size="small">编辑</el-button>
+                    <el-button @click="handleClick(scope.row)" type="text" size="small">编辑</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -118,9 +117,13 @@
             beforeUpload: function (file, fileList) {
                 return true;
             },
-            handleClick: function (scope, row) {
-                console.log(scope);
-                console.log(row);
+            handleClick: function (row) {
+                this.form.id = row.id;
+                this.form.name = row.name;
+                this.form.summary = row.summary;
+                this.form.yprice = row.yprice;
+                this.form.price = row.price;
+                this.addFormVisible = true;
             },
             refreshTable: function () {
                 axios

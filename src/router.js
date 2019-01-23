@@ -2,7 +2,6 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import DashBoard from '@/components/DashBoard'
 import UserList from '@/components/user/UserList'
-import UserFile from '@/components/user/UserFile'
 import About from '@/views/About'
 import Home from '@/views/Home'
 
@@ -23,7 +22,7 @@ export default new Router({
         component: UserList
       },{
         path: 'user/file',
-        component: UserFile
+        component: UserList
       }]
     }
   ]

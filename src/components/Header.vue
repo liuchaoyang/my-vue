@@ -2,7 +2,7 @@
     <div >
         <el-row>
             <el-col :span="24">
-                <div style="padding-left: 50px">这事一个很不错的VUE</div>
+                <div style="padding-left: 50px">智慧全科管理后台</div>
             </el-col>
         </el-row>
     </div>

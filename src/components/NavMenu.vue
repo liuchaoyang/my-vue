@@ -8,28 +8,36 @@
                 <el-menu-item index="/">
                     <template slot="title">
                         <i class="el-icon-goods"></i>
-                        <span>DashBoard</span>
+                        <span>首页</span>
                     </template>
                 </el-menu-item>
                 <el-submenu index="2">
                     <template slot="title">
                         <i class="el-icon-goods"></i>
-                        <span>导航一</span>
+                        <span>商品管理</span>
                     </template>
                     <el-menu-item-group>
-                        <el-menu-item index="/user/list">选项1</el-menu-item>
-                        <el-menu-item index="/user/file">选项2</el-menu-item>
+                        <el-menu-item index="/user/list">商品列表</el-menu-item>
                     </el-menu-item-group>
                 </el-submenu>
 
                 <el-submenu index="3">
                     <template slot="title">
                         <i class="el-icon-setting"></i>
-                        <span>系统设置</span>
+                        <span>预约理疗</span>
                     </template>
                     <el-menu-item-group>
-                        <el-menu-item index="/user/list">选项1</el-menu-item>
-                        <el-menu-item index="/user/file">选项2</el-menu-item>
+                        <el-menu-item index="#">理疗列表</el-menu-item>
+                    </el-menu-item-group>
+                </el-submenu>
+
+                <el-submenu index="4">
+                    <template slot="title">
+                        <i class="el-icon-setting"></i>
+                        <span>预约手术</span>
+                    </template>
+                    <el-menu-item-group>
+                        <el-menu-item >手术列表</el-menu-item>
                     </el-menu-item-group>
                 </el-submenu>
 
