@@ -123,7 +123,9 @@
             add: function () {
                 let formData = new FormData();
                 // 创建了 FormData 对象的时候传入了表单但是读不出来表单数据，不知道哪里的问题。所以下面用 append 方法添加参数，想打印出来看看的话可以 formData.get('id')
-                formData.append('id', this.form.id);
+                if(this.form.id) {
+                    formData.append('id', this.form.id);
+                }
                 formData.append('name', this.form.name);
                 formData.append('summary', this.form.summary);
                 formData.append('yprice', this.form.yprice);
