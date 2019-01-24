@@ -134,7 +134,7 @@
                 formData.append('detail', this.detailPath[0] ? this.detailPath[0].raw : '');
 
                 const instance = axios.create({
-                    baseURL: 'http://localhost:8086',
+                    baseURL: 'https://www.yiyadr.com/my-doctor/',
                     headers: {
                         "Content-Type": "multipart/form-data",
                         'token': '555'
@@ -173,7 +173,7 @@
             },
             refreshTable: function () {
                 axios
-                    .get('http://localhost:8086/product/list_all')
+                    .get('https://www.yiyadr.com/my-doctor/product/list_all')
                     .then(response => {
                         this.tableData = response.data.data
                     })
