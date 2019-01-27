@@ -117,6 +117,14 @@
                     doctorIds: ''
                 };
                 this.addFormVisible = true;
+                axios
+                    .get('https://www.yiyadr.com/my-doctor/org/list_by_parentId')
+                    .then(response => {
+                        this.levelOne = response.data.data
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    })
             },
             save: function () {
                 if (!this.form.orgId){
@@ -128,7 +136,7 @@
                     return false;
                 }
                 const instance = axios.create({
-                    baseURL: 'http://localhost:8086',
+                    baseURL: 'https://www.yiyadr.com/my-doctor',
                 });
                 instance.post('/admin/physical/insert', qs.stringify(this.form))
                     .then(response => {
@@ -153,7 +161,7 @@
                 this.selectedDoctors = [];
                 this.form.doctorIds = '';
                 axios
-                    .get('http://localhost:8086/org/list_by_parentId?parentId=' + this.levelOneOrgId)
+                    .get('https://www.yiyadr.com/my-doctor/org/list_by_parentId?parentId=' + this.levelOneOrgId)
                     .then(response => {
                         this.levelTwo = response.data.data
                     })
@@ -168,7 +176,7 @@
                 this.selectedDoctors = [];
                 this.form.doctorIds = '';
                 axios
-                    .get('http://localhost:8086/org/list_by_parentId?parentId=' + this.levelTwoOrgId)
+                    .get('https://www.yiyadr.com/my-doctor/org/list_by_parentId?parentId=' + this.levelTwoOrgId)
                     .then(response => {
                         this.levelThree = response.data.data
                     })
@@ -185,7 +193,7 @@
                     return false;
                 }
                 axios
-                    .get('http://localhost:8086/doctor/list_by_orgId?orgId=' + this.form.orgId)
+                    .get('https://www.yiyadr.com/my-doctor/doctor/list_by_orgId?orgId=' + this.form.orgId)
                     .then(response => {
                         this.doctors = response.data.data
                     })
@@ -208,7 +216,7 @@
                 this.addFormVisible = true;
 
                 axios
-                    .get('http://localhost:8086/org/list_by_parentId')
+                    .get('https://www.yiyadr.com/my-doctor/org/list_by_parentId')
                     .then(response => {
                         this.levelOne = response.data.data
                     })
@@ -219,7 +227,7 @@
             refreshTable: function () {
                 axios
                     // .get('https://www.yiyadr.com/my-doctor/admin/physical/list')
-                    .get('http://localhost:8086/admin/physical/list')
+                    .get('https://www.yiyadr.com/my-doctor/admin/physical/list')
                     .then(response => {
                         this.tableData = response.data.data
                     })
