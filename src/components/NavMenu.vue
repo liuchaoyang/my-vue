@@ -27,7 +27,7 @@
                         <span>预约理疗</span>
                     </template>
                     <el-menu-item-group>
-                        <el-menu-item index="#">理疗列表</el-menu-item>
+                        <el-menu-item index="/physical/list">理疗列表</el-menu-item>
                     </el-menu-item-group>
                 </el-submenu>
 
