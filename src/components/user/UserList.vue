@@ -151,8 +151,7 @@
                 const instance = axios.create({
                     baseURL: 'https://www.yiyadr.com/my-doctor/',
                     headers: {
-                        "Content-Type": "multipart/form-data",
-                        'token': '555'
+                        "Content-Type": "multipart/form-data"
                     }
                 });
                 instance.post('/product/form_insert', formData)
