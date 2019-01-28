@@ -2,7 +2,7 @@
     <div>
         <p>商品列表</p>
 
-        <el-button type="primary" style="margin-bottom: 20px" @click="addFormVisible = true">新增</el-button>
+        <el-button type="primary" style="margin-bottom: 20px" @click="add()">新增</el-button>
 
         <br/>
         <el-table :data="tableData" border >
@@ -90,7 +90,7 @@
             </el-form>
             <div slot="footer" class="dialog-footer">
                 <el-button @click="addFormVisible = false">取 消</el-button>
-                <el-button type="primary" @click="add">确 定</el-button>
+                <el-button type="primary" @click="save">确 定</el-button>
             </div>
         </el-dialog>
     </div>
@@ -121,6 +121,19 @@
         },
         methods: {
             add: function () {
+                this.logoPath = [];
+                this.bannerPath = [];
+                this.detailPath = [];
+                this.form = {
+                    name: '',
+                    summary: '',
+                    yprice: '',
+                    price: '',
+                    logo: ''
+                };
+                this.addFormVisible = true;
+            },
+            save: function () {
                 let formData = new FormData();
                 // 创建了 FormData 对象的时候传入了表单但是读不出来表单数据，不知道哪里的问题。所以下面用 append 方法添加参数，想打印出来看看的话可以 formData.get('id')
                 if(this.form.id) {
