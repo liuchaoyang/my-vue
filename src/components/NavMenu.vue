@@ -11,6 +11,17 @@
                         <span>首页</span>
                     </template>
                 </el-menu-item>
+
+                <el-submenu index="1">
+                    <template slot="title">
+                        <i class="el-icon-goods"></i>
+                        <span>首页配置</span>
+                    </template>
+                    <el-menu-item-group>
+                        <el-menu-item index="/banner">banner配置</el-menu-item>
+                    </el-menu-item-group>
+                </el-submenu>
+
                 <el-submenu index="2">
                     <template slot="title">
                         <i class="el-icon-goods"></i>
@@ -37,7 +48,7 @@
                         <span>预约手术</span>
                     </template>
                     <el-menu-item-group>
-                        <el-menu-item >手术列表</el-menu-item>
+                        <el-menu-item index="/surgery/list">手术列表</el-menu-item>
                     </el-menu-item-group>
                 </el-submenu>
 
