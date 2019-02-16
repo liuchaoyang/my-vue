@@ -32,7 +32,7 @@
                 </el-form-item>
                 <!--选择医院-->
                 <el-form-item label="所属医院" :label-width="formLabelWidth">
-                    <el-select v-model="levelOneOrgId" placeholder="请选择一级地区" :visible.sync="selectOrgVisible" @change="orgLevelOneChange">
+                    <el-select v-model="levelOneOrgId" placeholder="请选择地区" :visible.sync="selectOrgVisible" @change="orgLevelOneChange">
                         <el-option
                                 v-for="item in levelOne"
                                 :key="item.id"
@@ -41,14 +41,14 @@
                         </el-option>
                     </el-select>
 
-                    <el-select v-model="levelTwoOrgId" placeholder="请选择二级地区" :visible.sync="selectOrgVisible" @change="orgLevelTwoChange">
-                        <el-option
-                                v-for="item in levelTwo"
-                                :key="item.id"
-                                :label="item.orgname"
-                                :value="item.id">
-                        </el-option>
-                    </el-select>
+                    <!--<el-select v-model="levelTwoOrgId" placeholder="请选择二级地区" :visible.sync="selectOrgVisible" @change="orgLevelTwoChange">-->
+                        <!--<el-option-->
+                                <!--v-for="item in levelTwo"-->
+                                <!--:key="item.id"-->
+                                <!--:label="item.orgname"-->
+                                <!--:value="item.id">-->
+                        <!--</el-option>-->
+                    <!--</el-select>-->
 
                     <el-select v-model="form.orgId" placeholder="请选择医院" :visible.sync="selectOrgVisible" @change="orgLevelThreeChange">
                         <el-option
@@ -61,7 +61,7 @@
                 </el-form-item>
 
                 <el-form-item label="手术医生" :label-width="formLabelWidth">
-                    <el-select v-model="selectedDoctors" multiple placeholder="请选择医院" :visible.sync="selectOrgVisible" @change="selectDoctorChange">
+                    <el-select v-model="selectedDoctors" multiple placeholder="请选择医生" :visible.sync="selectOrgVisible" @change="selectDoctorChange">
                         <el-option
                                 v-for="item in doctors"
                                 :key="item.userId"
@@ -163,27 +163,27 @@
                 axios
                     .get('https://www.yiyadr.com/my-doctor/org/list_by_parentId?parentId=' + this.levelOneOrgId)
                     .then(response => {
-                        this.levelTwo = response.data.data
-                    })
-                    .catch(error => {
-                        console.log(error)
-                    })
-            },
-            orgLevelTwoChange: function () {
-                this.levelThree = [];
-                this.form.orgId = '';
-                this.doctors = [];
-                this.selectedDoctors = [];
-                this.form.doctorIds = '';
-                axios
-                    .get('https://www.yiyadr.com/my-doctor/org/list_by_parentId?parentId=' + this.levelTwoOrgId)
-                    .then(response => {
                         this.levelThree = response.data.data
                     })
                     .catch(error => {
                         console.log(error)
                     })
             },
+            // orgLevelTwoChange: function () {
+            //     this.levelThree = [];
+            //     this.form.orgId = '';
+            //     this.doctors = [];
+            //     this.selectedDoctors = [];
+            //     this.form.doctorIds = '';
+            //     axios
+            //         .get('https://www.yiyadr.com/my-doctor/org/list_by_parentId?parentId=' + this.levelTwoOrgId)
+            //         .then(response => {
+            //             this.levelThree = response.data.data
+            //         })
+            //         .catch(error => {
+            //             console.log(error)
+            //         })
+            // },
             orgLevelThreeChange: function () {
                 this.doctors = [];
                 this.selectedDoctors = [];
