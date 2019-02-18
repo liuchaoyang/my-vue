@@ -77,8 +77,8 @@
                                action=""
                                :on-change="onChangeEvt3"
                                :show-file-list="true"
-                               :multiple="false"
-                               :limit="1"
+                               :multiple="true"
+                               :limit="5"
                                :file-list="detailPath"
                                :auto-upload="false"
                                :before-upload="beforeUpload">
@@ -146,9 +146,13 @@
                 // 这里文件上传的字段一定要设置文件列表中的 raw 参数 this.cert_path[0].raw
                 formData.append('logo', this.logoPath[0] ? this.logoPath[0].raw : '');
                 formData.append('banner', this.bannerPath[0] ? this.bannerPath[0].raw : '');
-                formData.append('detail', this.detailPath[0] ? this.detailPath[0].raw : '');
+
+                this.detailPath.forEach((img,index) => {
+                    formData.append('details', img.raw);
+                });
 
                 const instance = axios.create({
+                    // baseURL: 'http://localhost:8086',
                     baseURL: 'https://www.yiyadr.com/my-doctor/',
                     headers: {
                         "Content-Type": "multipart/form-data"
@@ -183,6 +187,10 @@
                 this.form.summary = row.summary;
                 this.form.yprice = row.yprice;
                 this.form.price = row.price;
+
+                this.logoPath = [];
+                this.bannerPath = [];
+                this.detailPath = [];
                 this.addFormVisible = true;
             },
             refreshTable: function () {
