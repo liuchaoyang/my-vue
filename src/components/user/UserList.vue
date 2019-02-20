@@ -23,7 +23,7 @@
 
 
         <!--add dialog-->
-        <el-dialog title="收货地址" :visible.sync="addFormVisible">
+        <el-dialog title="商品编辑" :visible.sync="addFormVisible">
             <el-form :model="form">
                 <el-form-item label="姓名" :label-width="formLabelWidth">
                     <el-input v-model="form.name" autocomplete="off"></el-input>

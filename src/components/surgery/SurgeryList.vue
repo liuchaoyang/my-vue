@@ -22,7 +22,7 @@
 
 
         <!--add dialog-->
-        <el-dialog title="收货地址" :visible.sync="addFormVisible">
+        <el-dialog title="手术编辑" :visible.sync="addFormVisible">
             <el-form :model="form">
                 <el-form-item label="手术名称" :label-width="formLabelWidth">
                     <el-input v-model="form.name" autocomplete="off"></el-input>
