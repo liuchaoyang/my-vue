@@ -399,8 +399,8 @@
                 formData.append('file', fileList[0] ? fileList[0].raw : '');
                 formData.append('productId', this.form.id);
                 const instance = axios.create({
-                    // baseURL: 'https://www.yiyadr.com/my-doctor/',
-                    baseURL: 'http://localhost:8086/',
+                    baseURL: 'https://www.yiyadr.com/my-doctor/',
+                    // baseURL: 'http://localhost:8086/',
                     headers: {
                         "Content-Type": "multipart/form-data"
                     }
