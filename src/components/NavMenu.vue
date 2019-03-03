@@ -52,6 +52,28 @@
                     </el-menu-item-group>
                 </el-submenu>
 
+                <el-submenu index="5">
+                    <template slot="title">
+                        <i class="el-icon-setting"></i>
+                        <span>数据查看</span>
+                    </template>
+                    <el-menu-item-group>
+                        <el-menu-item index="/show/doctor-order">挂号预约列表</el-menu-item>
+                    </el-menu-item-group>
+                    <el-menu-item-group>
+                        <el-menu-item index="/show/physical-order">手术预约列表</el-menu-item>
+                    </el-menu-item-group>
+                    <el-menu-item-group>
+                        <el-menu-item index="/show/surgery-order">理疗预约列表</el-menu-item>
+                    </el-menu-item-group>
+                    <el-menu-item-group>
+                        <el-menu-item index="/show/product-order">商品订单列表</el-menu-item>
+                    </el-menu-item-group>
+                    <el-menu-item-group>
+                        <el-menu-item index="/show/recommend">推荐新人列表</el-menu-item>
+                    </el-menu-item-group>
+                </el-submenu>
+
             </el-menu>
         </el-col>
     </el-row>
