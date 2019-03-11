@@ -9,7 +9,7 @@
             <el-table-column prop="productName" label="商品名称" ></el-table-column>
             <el-table-column prop="count" label="个数" ></el-table-column>
             <el-table-column prop="price" label="价格" ></el-table-column>
-            <el-table-column prop="price" label="价格" ></el-table-column>
+            <el-table-column prop="addrDetail" label="收货地址" width="200" ></el-table-column>
             <el-table-column prop="create_time" label="下单时间" ></el-table-column>
             <el-table-column prop="update_time" label="更新时间" ></el-table-column>
 
