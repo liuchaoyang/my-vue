@@ -11,6 +11,7 @@
             <!--<el-table-column prop="summary" label="简介" ></el-table-column>-->
             <el-table-column prop="yprice" label="原价" ></el-table-column>
             <el-table-column prop="price" label="现格" ></el-table-column>
+            <el-table-column prop="sort" label="优先级" ></el-table-column>
             <el-table-column prop="createTime" label="创建时间" width="100"></el-table-column>
             <el-table-column prop="updateTime" label="更新时间" width="100"></el-table-column>
 
@@ -38,6 +39,14 @@
                 <el-form-item label="现价" :label-width="formLabelWidth">
                     <el-input v-model="form.price"></el-input>
                 </el-form-item>
+                <el-form-item label="优先级" :label-width="formLabelWidth">
+                    <el-input v-model="form.sort"></el-input>
+                    <el-alert
+                            title="请填写数字，越大表示优先级越高"
+                            type="success">
+                    </el-alert>
+                </el-form-item>
+
                 <!--logo-->
                 <el-form-item label="logo" :label-width="formLabelWidth">
                     <el-upload class="avatar-uploader"
@@ -268,6 +277,7 @@
                     summary: '',
                     yprice: '',
                     price: '',
+                    sort: '',
                     logo: ''
                 },
                 addFormVisible: false,
@@ -299,6 +309,7 @@
                 formData.append('summary', this.form.summary);
                 formData.append('yprice', this.form.yprice);
                 formData.append('price', this.form.price);
+                formData.append('sort', this.form.sort);
                 // 这里文件上传的字段一定要设置文件列表中的 raw 参数 this.cert_path[0].raw
                 formData.append('logo', this.logoPath[0] ? this.logoPath[0].raw : '');
                 formData.append('banner', this.bannerPath[0] ? this.bannerPath[0].raw : '');
