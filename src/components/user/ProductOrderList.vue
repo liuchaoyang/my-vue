@@ -12,12 +12,17 @@
             <el-table-column prop="addrDetail" label="收货地址" width="200" ></el-table-column>
             <el-table-column prop="create_time" label="下单时间" ></el-table-column>
             <el-table-column prop="update_time" label="更新时间" ></el-table-column>
+            <el-table-column label="处理状态" >
+                <template slot-scope="scope">
+                    <span>{{ scope.row.over == 0?'未处理' : '已处理' }}</span>
+                </template>
+            </el-table-column>
 
-            <!--<el-table-column fixed="right" label="操作" >-->
-                <!--<template slot-scope="scope">-->
-                    <!--<el-button @click="handleClick(scope.row)" type="text" size="small">编辑</el-button>-->
-                <!--</template>-->
-            <!--</el-table-column>-->
+            <el-table-column fixed="right" label="操作" >
+                <template slot-scope="scope">
+                    <el-button @click="handleClick(scope.row)" type="text" size="small">处理</el-button>
+                </template>
+            </el-table-column>
         </el-table>
 
         <el-pagination
@@ -29,6 +34,37 @@
                 layout=" prev, pager, next, sizes, total"
                 :total="total">
         </el-pagination>
+
+
+        <!--add dialog-->
+        <el-dialog title="订单处理状态设置" :visible.sync="overFormVisible">
+            <el-form :model="form">
+                <el-form-item label="订单编号" :label-width="formLabelWidth">
+                    <el-input v-model="form.orderId" autocomplete="off"></el-input>
+                </el-form-item>
+                <el-form-item label="用户姓名" :label-width="formLabelWidth">
+                    <el-input v-model="form.name_" autocomplete="off"></el-input>
+                </el-form-item>
+                <el-form-item label="商品名称" :label-width="formLabelWidth">
+                    <el-input v-model="form.productName" autocomplete="off"></el-input>
+                </el-form-item>
+                <el-form-item label="处理状态" :label-width="formLabelWidth">
+                    <!--<el-input v-model="form.over"></el-input>-->
+                    <el-select v-model="form.over" placeholder="请选择">
+                        <el-option
+                                v-for="item in overOptions"
+                                :key="item.value"
+                                :label="item.label"
+                                :value="item.value">
+                        </el-option>
+                    </el-select>
+                </el-form-item>
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+                <el-button @click="overFormVisible = false">取 消</el-button>
+                <el-button type="primary" @click="overSave">确 定</el-button>
+            </div>
+        </el-dialog>
     </div>
 </template>
 
@@ -45,45 +81,37 @@
                 total: 0,
                 page: 1,
                 pageSize: 10,
-                pageNum:1
+                pageNum:1,
+
+                form: {
+                    orderId: '',
+                    name_: '',
+                    productName: '',
+                    over: ''
+                },
+                overFormVisible: false,
+                formLabelWidth: '120px',
+
+                overOptions: [{
+                    value: 0,
+                    label: '未处理'
+                }, {
+                    value: 1,
+                    label: '已处理'
+                }]
             }
         },
         methods: {
-            add: function () {
-                this.form = {
-                    name: '',
-                    summary: '',
-                    orgId: '',
-                    doctorIds: ''
-                };
-                this.addFormVisible = true;
-                axios
-                    .get('https://www.yiyadr.com/my-doctor/org/list_by_parentId')
-                    .then(response => {
-                        this.levelOne = response.data.data
-                    })
-                    .catch(error => {
-                        console.log(error)
-                    })
-            },
-            save: function () {
-                if (!this.form.orgId){
-                    this.$message('请选择一个医院');
-                    return false;
-                }
-                if (!this.form.doctorIds){
-                    this.$message('请分配理疗医生');
-                    return false;
-                }
+            overSave: function () {
                 const instance = axios.create({
                     baseURL: 'https://www.yiyadr.com/my-doctor',
                 });
-                instance.post('/admin/physical/insert', qs.stringify(this.form))
+                instance.post('/admin/product/order/over', qs.stringify(this.form))
                     .then(response => {
                         console.log(response.data);
-                        this.addFormVisible = false;
+                        this.overFormVisible = false;
 
-                        this.refreshTable();
+                        this.refreshTable(1,10);
                     })
                     .catch(error => {
                         console.log(error)
@@ -98,6 +126,14 @@
             handleCurrentChange(val) {
                 // this.pageNum = val;
                 this.refreshTable(val, this.pageSize);
+            },
+            handleClick: function (row) {
+                this.form.orderId = row.id;
+                this.form.name_ = row.name_;
+                this.form.productName = row.productName;
+                this.form.over = row.over;
+
+                this.overFormVisible = true;
             },
             refreshTable: function (p, ps) {
                 axios

@@ -354,6 +354,7 @@
                 this.form.summary = row.summary;
                 this.form.yprice = row.yprice;
                 this.form.price = row.price;
+                this.form.sort = row.sort;
 
                 this.logoPath = [];
                 this.bannerPath = [];
